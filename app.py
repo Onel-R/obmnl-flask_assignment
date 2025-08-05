@@ -36,7 +36,7 @@ def edit_transaction(transaction_id):
     if request.method == "POST":
         for trans in transactions:
             if transaction_id == trans['id']:
-                trans['date'] = request.form['date'],
+                trans['date'] = request.form['date']
                 trans['amount'] = float(request.form['amount'])
                 break
         return redirect(url_for("get_transactions"))
@@ -46,8 +46,8 @@ def edit_transaction(transaction_id):
 # Delete operation
 @app.route("/delete/<int:transaction_id>")
 def delete_transaction(transaction_id):
-    transaction = next((d for d in transactions if d["id"] == transaction_id, None))
-    transactions.remove(transaction)
+     # Find the transaction with the matching ID and remove it from the list
+    transactions.remove(next((d for d in transactions if d["id"] == transaction_id), None))  
 
     return redirect(url_for("get_transactions"))
 
